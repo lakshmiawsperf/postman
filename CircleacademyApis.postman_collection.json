@@ -62,6 +62,7 @@
 							"// pm.variables.set(\"email\",\"jatinvsharma@gmail.com\");\r",
 							"// console.log(pm.variables.get(\"email\"));\r",
 							"//pm.globals.set(\"email\",\"jatinvsharma@gmail.com\");\r",
+							"pm.environment.set(\"BaseURL\",\"http://139.59.91.96:3000\");\r",
 							"console.log(\"This is from PreRequest Script \" + pm.environment.get(\"BaseURL\"));\r",
 							"pm.globals.set(\"email\",\"jatinvsharma@gmail.com\");\r",
 							"pm.globals.set(\"password\",\"123123123\");"
