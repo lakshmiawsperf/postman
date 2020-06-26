@@ -1,0 +1,361 @@
+{
+	"info": {
+		"_postman_id": "700097a3-fb7c-40cd-94eb-dacb20756497",
+		"name": "CircleacademyApis",
+		"description": "CircleacademyApis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "UserSignin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "62549d98-4afb-46c1-b478-0ae4dc3ad09a",
+						"exec": [
+							"// pm.test(\"Status code is 200\", function () {\r",
+							"//     pm.response.to.have.status(200);\r",
+							"// });\r",
+							"\r",
+							"pm.test(\"response is text\", function () {\r",
+							"    var response = pm.response.json();\r",
+							"   // response.status.to.eql(\"success\");\r",
+							"   pm.expect(response.status).to.eql(\"success\");\r",
+							"   \r",
+							"});\r",
+							"\r",
+							"pm.test(\"User  is 2\", function () {\r",
+							"    var response = pm.response.json();\r",
+							"   // response.status.to.eql(\"success\");\r",
+							"   pm.expect(response.data.user.id).to.eql(2);\r",
+							"   \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Token is string\", function () {\r",
+							"    var response = pm.response.json();\r",
+							"   // response.status.to.eql(\"success\");\r",
+							"   pm.expect(response.data.token).to.length.not.eql(0);\r",
+							"   \r",
+							"});\r",
+							"\r",
+							"pm.test(\"Token Saved into string\", function () {\r",
+							"    var response = pm.response.json();\r",
+							"  \r",
+							"    pm.globals.set(\"token\", response.data.token);\r",
+							"   \r",
+							"\r",
+							"   \r",
+							"});\r",
+							"\r",
+							"console.log(\"this is from Test output\"  + pm.variables.get(\"email\"));\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "8cd3300d-71bb-4890-b2c9-aa912ccc0d0f",
+						"exec": [
+							"// pm.variables.set(\"email\",\"jatinvsharma@gmail.com\");\r",
+							"// console.log(pm.variables.get(\"email\"));\r",
+							"//pm.globals.set(\"email\",\"jatinvsharma@gmail.com\");\r",
+							"console.log(\"This is from PreRequest Script \" + pm.environment.get(\"BaseURL\"));\r",
+							"pm.globals.set(\"email\",\"jatinvsharma@gmail.com\");\r",
+							"pm.globals.set(\"password\",\"123123123\");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n\r\n\"email\": \"{{email}}\",\r\n\r\n\"password\": \"{{password}}\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/user/signin",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"user",
+						"signin"
+					]
+				},
+				"description": "UserLogin"
+			},
+			"response": []
+		},
+		{
+			"name": "Add Product API",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e3b57537-d52d-4d1d-8cda-a8514982e0fe",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"data id is more than 4 digit \",function() {\r",
+							"        var response = pm.response.json();\r",
+							" //pm.expect(response.data.id).length.eql(4);\r",
+							" pm.globals.set(\"ProductID\",response.data.id);\r",
+							"\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{token}}"
+					},
+					{
+						"key": "",
+						"type": "text",
+						"value": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"prod_name\": \"Product Name3\",\r\n\"prod_desc\": \"Hello world product\",\r\n\"prod_price\": 1000\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/api/v1/products",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateProductAPI",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2fbe634a-d82c-42d5-8684-60b7ea8c46a5",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "{{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"prod_name\": \"Product Name12\",\r\n\"prod_desc\": \"Hello world product new detailst\",\r\n\"prod_price\": 101\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/api/v1/products/{{ProductID}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"{{ProductID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ProductBYIDAPI",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "073580ba-dd54-4621-97bf-8ab00f1244c2",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/api/v1/products/{{ProductID}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"{{ProductID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SearchproductAPI",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e006f6d5-e432-4edd-b8d7-70ab5ac22eae",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// pm.test(\"validate response id\",function(){\r",
+							"\r",
+							"//    var response =  pm.response.json();\r",
+							"//    pm.expect(response[0].id).to.eql(\"{{ProductID}}\");\r",
+							"\r",
+							"// });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{BaseURL}}/api/v1/products/search/{{ProductID}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"search",
+						"{{ProductID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteAPI",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f1c4b0bb-81a4-4793-bb8a-b97e138a6dfb",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "{{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BaseURL}}/api/v1/products/{{ProductID}}",
+					"host": [
+						"{{BaseURL}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"products",
+						"{{ProductID}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
