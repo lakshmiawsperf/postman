@@ -1,9 +1,36 @@
+HOw to setup an instance in AWS for Jenkins and postman install
+
+Step 1: Once the AWS Ubuntu/Linux instance created please execute below steps
+
+Step2: connect with AWS Instance : ssh -i "UbuntuServerKey.pem" ubuntu@ec2-54-145-100-153.compute-1.amazonaws.com
+
+Step 3 : Install Jenkins 
+wget http://mirrors.jenkins.io/war-stable/latest/jenkins.war
+
+Step :4 : Update Ubuntu with necessary basic updates 
+sudo apt update
+sudo apt install openjdk-8-jre-headless
+sudo apt install nodejs
+sudo apt install npm
+sudo npm cache clean -f
+sudo npm install -g n
+sudo n stable
+sudo n latest
+curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
+sudo apt-get install -y nodejs
+vi launch.sh
+java -jar jenkins.war
+nohup sh launch.sh &
+
+Step5: Check with http://ipv4:8081:--> AWS Jenkins user password phrase copy and user creaation (admin/admin)
+
+Step6: install postman , newman package 
+
+Step7 : install htmlextra 
+
 https://github.com/DannyDainton/newman-reporter-htmlextra
-
-
 
 npm install -g newman-reporter-htmlextra
 
-
-
+Step8: UPdate job configh with below command 
 newman run CircleacademyApis.postman_collection.json -e QASIT.postman_environment.json -r htmlextra
